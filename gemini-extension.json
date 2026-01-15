@@ -1,0 +1,6 @@
+{
+  "name": "ducky",
+  "version": "1.0.0",
+  "description": "Rubber Duck Debugging AI Assistant",
+  "contextFileName": "GEMINI.md"
+}

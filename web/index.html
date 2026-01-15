@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ducky - Rubber Duck Debugging AI</title>
+    <link rel="stylesheet" href="static/style.css">
+    <!-- Mermaid.js para diagramas -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'dark', securityLevel: 'loose' });
+    </script>
+    <!-- Favicon (Emoji) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦆</text></svg>">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="img/logo2.png" alt="Ducky Logo">
+        </div>
+        <div class="api-key-container">
+            <button id="apiKeyBtn" title="Configurar API Key">🔑 KEY</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Panel Izquierdo: Contexto (Código) -->
+        <div class="input-panel">
+            <h3>🧩 Contexto / Código</h3>
+            <p style="color: var(--text-muted); font-size: 0.8rem;">Pega aquí el código que te está dando problemas o los logs de error.</p>
+            <textarea id="contextInput" placeholder="// Pega tu código aquí..."></textarea>
+        </div>
+
+        <!-- Panel Derecho: Chat -->
+        <div class="chat-panel">
+            <div class="chat-history" id="chatHistory">
+                <!-- Mensaje de bienvenida -->
+                <div class="message ducky">
+                    ¡Quack! 👋 Soy Ducky. Veo que tienes esa mirada de "mi código no compila".<br><br>
+                    Cuéntame, ¿qué se supone que debería estar pasando y qué desastre está pasando en realidad?
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="btn-rage" id="rageBtn" title="Modo Desahogo">😡 Rage Mode</button>
+                <textarea id="userMessage" placeholder="Explícale el problema al pato..." style="flex: 2; padding: 0.8rem; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: white; resize: none; height: 50px;"></textarea>
+                <button class="btn-send" id="sendBtn">Enviar 🚀</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal API Key -->
+    <div id="keyModal" class="modal hidden">
+        <div class="modal-content">
+            <h3>🔑 Configuración</h3>
+            <p>Introduce tu OpenAI API Key para despertar al pato.</p>
+            <input type="password" id="apiKeyInput" placeholder="sk-..." />
+            <div class="modal-actions">
+                <button id="closeModalBtn" style="border-color: #666; color: #aaa;">Cancelar</button>
+                <button id="saveKeyBtn">Guardar</button>
+            </div>
+            <p style="font-size: 0.7rem; color: #555; margin-top: 1rem;">La clave se guarda localmente en tu navegador.</p>
+        </div>
+    </div>
+
+    <script src="static/script.js"></script>
+</body>
+</html>
