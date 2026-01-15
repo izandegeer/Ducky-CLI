@@ -15,10 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let chatMessages = []; 
 
-    // --- LOGICA DE API KEY ---
+    // --- API KEY LOGIC ---
     const savedKey = localStorage.getItem('openai_api_key');
     if (savedKey) {
         apiKeyInput.value = savedKey;
+        console.log("Key loaded from local storage");
     } else {
         modal.classList.remove('hidden');
     }
@@ -30,11 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (key) {
             localStorage.setItem('openai_api_key', key);
             modal.classList.add('hidden');
-            alert("¡Key guardada! 🦆");
+            alert("Key saved! 🦆");
+        } else {
+            alert("Please enter a valid API Key.");
         }
     });
 
-    // --- LOGICA DE ESTADOS Y MERMAID ---
+    // --- STATE & MERMAID LOGIC ---
 
     function updateDuckState(text) {
         const body = document.body;
@@ -60,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderMermaid(container) {
-        // Busca bloques de código mermaid y renderízalos
         const mermaids = container.querySelectorAll('.mermaid-block');
         mermaids.forEach((block, index) => {
             const graphDefinition = block.textContent;
@@ -77,10 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function formatMessage(text) {
-        // Procesar markdown simple y bloques mermaid
         let formatted = text.replace(/\n/g, '<br>');
         
-        // Detectar bloques de código mermaid ```mermaid ... ```
         const mermaidRegex = /```mermaid([\s\S]*?)```/g;
         formatted = formatted.replace(mermaidRegex, (match, code) => {
             return `<div class="mermaid-block" style="display:none">${code}</div>`; 
@@ -98,7 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         chatHistory.appendChild(div);
         
-        // Renderizar gráficos si los hay
         if (role === 'ducky') {
             setTimeout(() => renderMermaid(div), 100);
         }
@@ -106,74 +105,58 @@ document.addEventListener('DOMContentLoaded', () => {
         chatHistory.scrollTop = chatHistory.scrollHeight;
     }
 
-    // --- LOGICA DE CHAT ---
+    // --- CHAT LOGIC ---
 
-        async function sendMessage() {
+    async function sendMessage() {
+        const text = userMessageInput.value.trim();
+        const context = contextInput.value.trim();
+        const apiKey = localStorage.getItem('openai_api_key');
 
-            const text = userMessageInput.value.trim();
+        if (!text && !context) return;
 
-            const context = contextInput.value.trim();
+        // --- SPECIAL COMMAND: HELP ---
+        if (text.toLowerCase() === '/ducky:help' || text.toLowerCase() === 'ducky help') {
+            appendMessage('ducky', `🦆 **DUCKY SURVIVAL GUIDE** 🦆<br><br>
+            **Mission:** Help you think, not copy.<br><br>
+            **Commands:**<br>
+            - \
+/Ducky:help\
+: Show this guide.<br>
+            - 
+😡 Rage Mode
+: (Button) Use it when you want to scream at the code.<br><br>
+            **How to use me:**<br>
+            1. Paste your code in the left panel.<br>
+            2. Explain your problem in the chat.<br>
+            3. I will ask Socratic questions to guide you.<br>
+            4. Ask for flowcharts! ("Draw a diagram of this loop").<br><br>
+            *Quack! Success is finding the bug yourself.*`);
+            userMessageInput.value = '';
+            return;
+        }
 
-            const apiKey = localStorage.getItem('openai_api_key');
-
-    
-
-            if (!text && !context) return;
-
-    
-
-            // --- COMANDO ESPECIAL: HELP ---
-
-            if (text.toLowerCase() === '/ducky:help') {
-
-                appendMessage('ducky', `🦆 **GUÍA DE SUPERVIVENCIA DUCKY** 🦆<br><br>
-
-                **Misión:** Ayudarte a pensar, no a copiar.<br><br>
-
-                **Comandos:**<br>
-
-                - \`/Ducky:help\`: Muestra esta guía.<br>
-
-                - \`😡 Rage Mode\`: (Botón) Úsalo cuando quieras gritarle al código.<br><br>
-
-                **Cómo usarme:**<br>
-
-                1. Pega tu código en el panel de la izquierda.<br>
-
-                2. Explícame tu problema en el chat.<br>
-
-                3. Yo te haré preguntas socráticas para guiarte.<br>
-
-                4. ¡Pídeme diagramas de flujo! ("Hazme un diagrama de este bucle").<br><br>
-
-                *Quack! El éxito es que tú mismo encuentres el error.*`);
-
-                userMessageInput.value = '';
-
-                return;
-
-            }
-
-    
-
-            if (!apiKey) {
+        if (!apiKey) {
             modal.classList.remove('hidden');
+            alert("Quack! I need the API Key to work.");
             return;
         }
 
         let finalContent = text;
         if (context) {
-            finalContent += `\n\n--- CONTEXTO/CÓDIGO ---\n${context}`;
+            finalContent += `
+
+--- CONTEXT/CODE ---
+${context}`;
         }
 
-        appendMessage('user', text || "(Enviando código...)");
+        appendMessage('user', text || "(Sending code...)");
         userMessageInput.value = '';
         chatMessages.push({ role: "user", content: finalContent });
 
         // Loading
         const loadingDiv = document.createElement('div');
         loadingDiv.classList.add('message', 'ducky');
-        loadingDiv.textContent = "Pensando... 🦆";
+        loadingDiv.textContent = "Thinking... 🦆";
         loadingDiv.id = "loadingMsg";
         chatHistory.appendChild(loadingDiv);
 
@@ -187,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
             });
 
-            if (!response.ok) throw new Error("Error en servidor");
+            if (!response.ok) throw new Error("Server Error");
 
             const data = await response.json();
             document.getElementById('loadingMsg').remove();
@@ -212,10 +195,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     rageBtn.addEventListener('click', () => {
         document.body.classList.add('status-alert');
-        userMessageInput.placeholder = "¡GRITA AQUÍ!";
+        userMessageInput.placeholder = "SCREAM HERE!";
+        userMessageInput.focus();
         setTimeout(() => {
             document.body.classList.remove('status-alert');
-            userMessageInput.placeholder = "Explícale el problema al pato...";
+            userMessageInput.placeholder = "Explain the problem to the duck...";
         }, 5000);
     });
 });

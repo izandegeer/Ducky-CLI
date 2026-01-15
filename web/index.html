@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ducky - Rubber Duck Debugging AI</title>
     <link rel="stylesheet" href="static/style.css">
-    <!-- Mermaid.js para diagramas -->
+    <!-- Mermaid.js for diagrams -->
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script>
         mermaid.initialize({ startOnLoad: true, theme: 'dark', securityLevel: 'loose' });
@@ -17,35 +17,35 @@
 
     <header>
         <div class="logo">
-            <img src="img/logo2.png" alt="Ducky Logo">
+            <img src="../img/logo2.png" alt="Ducky Logo">
         </div>
         <div class="api-key-container">
-            <button id="apiKeyBtn" title="Configurar API Key">🔑 KEY</button>
+            <button id="apiKeyBtn" title="Configure API Key">🔑 KEY</button>
         </div>
     </header>
 
     <main>
-        <!-- Panel Izquierdo: Contexto (Código) -->
+        <!-- Left Panel: Context (Code) -->
         <div class="input-panel">
-            <h3>🧩 Contexto / Código</h3>
-            <p style="color: var(--text-muted); font-size: 0.8rem;">Pega aquí el código que te está dando problemas o los logs de error.</p>
-            <textarea id="contextInput" placeholder="// Pega tu código aquí..."></textarea>
+            <h3>🧩 Context / Code</h3>
+            <p style="color: var(--text-muted); font-size: 0.8rem;">Paste the code giving you trouble or error logs here.</p>
+            <textarea id="contextInput" placeholder="// Paste your code here..."></textarea>
         </div>
 
-        <!-- Panel Derecho: Chat -->
+        <!-- Right Panel: Chat -->
         <div class="chat-panel">
             <div class="chat-history" id="chatHistory">
-                <!-- Mensaje de bienvenida -->
+                <!-- Welcome Message -->
                 <div class="message ducky">
-                    ¡Quack! 👋 Soy Ducky. Veo que tienes esa mirada de "mi código no compila".<br><br>
-                    Cuéntame, ¿qué se supone que debería estar pasando y qué desastre está pasando en realidad?
+                    Quack! 👋 I'm Ducky. I see you have that "my code won't compile" look.<br><br>
+                    Tell me, what is supposed to happen and what disaster is actually happening?
                 </div>
             </div>
 
             <div class="controls">
-                <button class="btn-rage" id="rageBtn" title="Modo Desahogo">😡 Rage Mode</button>
-                <textarea id="userMessage" placeholder="Explícale el problema al pato..." style="flex: 2; padding: 0.8rem; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: white; resize: none; height: 50px;"></textarea>
-                <button class="btn-send" id="sendBtn">Enviar 🚀</button>
+                <button class="btn-rage" id="rageBtn" title="Rage Mode">😡 Rage Mode</button>
+                <textarea id="userMessage" placeholder="Explain the problem to the duck..." style="flex: 2; padding: 0.8rem; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: white; resize: none; height: 50px;"></textarea>
+                <button class="btn-send" id="sendBtn">Send 🚀</button>
             </div>
         </div>
     </main>
@@ -53,14 +53,14 @@
     <!-- Modal API Key -->
     <div id="keyModal" class="modal hidden">
         <div class="modal-content">
-            <h3>🔑 Configuración</h3>
-            <p>Introduce tu OpenAI API Key para despertar al pato.</p>
+            <h3>🔑 Configuration</h3>
+            <p>Enter your OpenAI API Key to wake the duck.</p>
             <input type="password" id="apiKeyInput" placeholder="sk-..." />
             <div class="modal-actions">
-                <button id="closeModalBtn" style="border-color: #666; color: #aaa;">Cancelar</button>
-                <button id="saveKeyBtn">Guardar</button>
+                <button id="closeModalBtn" style="border-color: #666; color: #aaa;">Cancel</button>
+                <button id="saveKeyBtn">Save</button>
             </div>
-            <p style="font-size: 0.7rem; color: #555; margin-top: 1rem;">La clave se guarda localmente en tu navegador.</p>
+            <p style="font-size: 0.7rem; color: #555; margin-top: 1rem;">The key is stored locally in your browser.</p>
         </div>
     </div>
 

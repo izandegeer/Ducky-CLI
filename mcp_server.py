@@ -1,20 +1,20 @@
 from mcp.server.fastmcp import FastMCP
 import os
 
-# Inicializamos el servidor MCP
+# Initialize MCP Server
 mcp = FastMCP("Ducky 🦆")
 
-# Cargamos el System Prompt (la personalidad del pato)
+# Load System Prompt
 try:
     with open("system_prompt.txt", "r", encoding="utf-8") as f:
         SYSTEM_PROMPT = f.read()
 except FileNotFoundError:
-    SYSTEM_PROMPT = "Eres un patito de goma experto en programación. Ayuda al usuario a encontrar errores haciéndole preguntas."
+    SYSTEM_PROMPT = "You are an expert rubber duck debugging assistant. Help the user find bugs by asking questions."
 
 @mcp.prompt()
 def ducky_debug(code: str = "") -> str:
     """
-    Invoca al Pato de Goma para debuggear el código seleccionado o un problema específico.
+    Invokes the Rubber Duck to debug selected code or a specific problem.
     """
     return [
         {
@@ -23,17 +23,17 @@ def ducky_debug(code: str = "") -> str:
         },
         {
             "role": "user",
-            "content": f"Aquí tienes el código o contexto que quiero debuggear:\n\n{code}\n\nAyúdame a encontrar el error pensando paso a paso."
+            "content": f"Here is the code or context I want to debug:\n\n{code}\n\nHelp me find the error by thinking step by step."
         }
     ]
 
 @mcp.tool()
 def ask_ducky_concept(concept: str) -> str:
     """
-    Pregunta a Ducky sobre un concepto de programación confuso para que te lo explique con analogías sencillas.
+    Ask Ducky about a confusing programming concept to get a simple, fun analogy explanation.
     """
-    return f"Responde como Ducky (el patito de goma socrático) explicando este concepto de forma simple y divertida: {concept}"
+    return f"Respond as Ducky (the Socratic rubber duck) explaining this concept simply and funnily: {concept}"
 
 if __name__ == "__main__":
-    # El servidor MCP corre sobre stdio por defecto para conectarse con Claude Desktop
+    # MCP server runs on stdio by default for Claude Desktop connection
     mcp.run()
