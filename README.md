@@ -7,7 +7,7 @@ Ducky is a context-aware extension that transforms your Gemini CLI into a Rubber
 
 1. **Clone the repo:**
    ```bash
-   git clone https://github.com/izandegeer/ducky-extension.git
+   git clone https://github.com/izandegeer/Ducky-CLI.git
    cd ducky-extension
    ```
 
