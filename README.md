@@ -1,41 +1,39 @@
 # 🦆 Ducky for Gemini CLI
-> **Rubber Duck Debugging Companion & Socratic Mentor**
+> **The Official Socratic Debugging Extension**
 
-Ducky is a context-aware extension for the Gemini CLI that helps you debug code by asking the right questions, visualizing flows, and managing your frustration, rather than just giving you the answer.
+Ducky is a context-aware extension that transforms your Gemini CLI into a Rubber Duck Debugging mentor.
 
-## ✨ Features
-- **Socratic Debugging:** Forces you to explain your logic to find bugs yourself.
-- **Context Aware:** Scans your current directory to understand your stack automatically.
-- **Mermaid Diagrams:** Generates flowcharts of your logic on demand.
-- **Rage Mode:** A safe space to vent when code doesn't work.
+## 📦 Installation (The Pro Way)
 
-## 📦 Installation
+1. **Clone the repo:**
+   ```bash
+   git clone https://github.com/izandegeer/ducky-extension.git
+   cd ducky-extension
+   ```
 
-To install Ducky, clone this repository into your Gemini extensions directory:
+2. **Install dependencies:**
+   *(Ensure you have the `mcp` python library)*
+   ```bash
+   pip install mcp
+   ```
 
-```bash
-# 1. Go to your extensions folder
-cd ~/.gemini/extensions
+3. **Link it to Gemini CLI:**
+   ```bash
+   gemini extensions link .
+   ```
 
-# 2. Clone the repo
-git clone https://github.com/tu-usuario/ducky-gemini.git ducky
-```
+4. **Restart your terminal.**
 
-*Note: Restart your Gemini CLI session after installing.*
+## 🎮 Commands
+- `/ducky:start` : Initialize context-aware debugging.
+- `/ducky:help`  : Show the ducky guide.
+- `/ducky:rage`  : Activate therapist mode.
+- `/ducky:stop`  : Back to normal.
 
-## 🎮 Usage
-
-Once installed, use these commands in your Gemini CLI:
-
-| Command | Description |
-| :--- | :--- |
-| `/Ducky:start` | **Wake up Ducky.** Scans context and starts the debugging session. |
-| `/Ducky:stop` | **Sleep.** Ducky goes back to sleep. |
-| `/Ducky:help` | Shows the survival guide and philosophy. |
-| `/Ducky:rage` | **Therapist Mode.** For when you need to scream. |
-
-## 🧠 Philosophy
-Ducky follows the **"No-Code" Rule**. It will rarely give you the solution code directly. Instead, it acts as a mirror for your thoughts, helping you become a better problem solver.
+## 🧠 Features
+- **Auto-Context:** Automatically scans your directory when started.
+- **Socratic Logic:** Guides you to the answer instead of giving it.
+- **Visuals:** Built-in support for Mermaid diagrams.
 
 ---
 *Quack!* 🦆

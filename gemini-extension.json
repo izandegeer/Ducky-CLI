@@ -1,6 +1,12 @@
 {
   "name": "ducky",
   "version": "1.0.0",
-  "description": "Rubber Duck Debugging AI Assistant",
-  "contextFileName": "GEMINI.md"
+  "contextFileName": "GEMINI.md",
+  "mcpServers": {
+    "duckyServer": {
+      "command": "python3",
+      "args": ["${extensionPath}${/}mcp_server.py"],
+      "cwd": "${extensionPath}"
+    }
+  }
 }
