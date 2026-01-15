@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "ducky": {
+      "command": "python3",
+      "args": [
+        "/ABSOLUTE/PATH/TO/YOUR/CLONED/REPO/mcp_server.py"
+      ]
+    }
+  }
+}
